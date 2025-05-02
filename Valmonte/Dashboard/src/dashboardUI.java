@@ -1,8 +1,6 @@
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,8 +38,6 @@ public class dashboardUI implements ActionListener{
         JLabel totalSalesLabel = new JLabel("Total Sales:"),
                 totalOrdersLabel = new JLabel("Total Orders:"),
                 totalInventoryLabel = new JLabel("Total Inventory:");
-
-        
         
         JLayeredPane dbPane = new JLayeredPane(); 
     public dashboardUI() {
@@ -53,7 +49,6 @@ public class dashboardUI implements ActionListener{
         frame.setResizable(true);
         frame.getContentPane().setBackground(Color.decode("#014518"));
         frame.setLocationRelativeTo(null);
-
 
 
 //JButtons
@@ -93,7 +88,7 @@ public class dashboardUI implements ActionListener{
         accountButton.setFocusable(false);
 
 
-        // New Window Button
+        // dbButtons
         dbsearchButton.setBounds(168, 113, 97, 40); // Height changed to 45
         dbsearchButton.setForeground(Color.decode("#ffffff"));
         dbsearchButton.setBackground(Color.decode("#014518"));
@@ -163,6 +158,7 @@ public class dashboardUI implements ActionListener{
 
         // Add JtextField to frame
         frame.add(dbSearchField);
+        
         // Adding buttons to the db panel
         frame.add(dbsearchButton);
         frame.add(dbrefreshButton);
@@ -175,7 +171,15 @@ public class dashboardUI implements ActionListener{
         frame.add(topBorder);
         frame.add(bottomBorder);
 
-
+        
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        if(e.getSource() == inventoryButton || e.getSource() == transactButton) {
+                frame.dispose();
+                SalesHistory salesHistory = new SalesHistory();
+        }
+    }
 
 
 
@@ -221,12 +225,5 @@ public class dashboardUI implements ActionListener{
          */
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        if(e.getSource() == inventoryButton || e.getSource() == transactButton) {
-                frame.dispose();
-                SalesHistory salesHistory = new SalesHistory();
-        }
-    }
+
 }
