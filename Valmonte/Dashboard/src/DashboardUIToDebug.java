@@ -1,23 +1,25 @@
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Component;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
-public class dashboardUI implements ActionListener{
 
-
+public class dashboardUI{
     public static void main(String[] args) {
-        new dashboardMain();
+        new dashboardUI();
     }
         JFrame frame = new JFrame("Dashboard UI");
-
+        
         CardLayout cardLayout = new CardLayout();
 
         JButton inventoryButton = new JButton("Inventory"),
@@ -25,7 +27,7 @@ public class dashboardUI implements ActionListener{
                 ordersButton = new JButton("Orders"),
                 accountButton = new JButton("Accounts"),
                 userButton = new JButton("UserAdmin"),
-                // New Window Button
+                // Dashboard Buttons
                 salesHistoryButton = new JButton("Sales History"),
                 dbsearchButton = new JButton("Search"),
                 dbrefreshButton = new JButton("Refresh"),
@@ -40,96 +42,94 @@ public class dashboardUI implements ActionListener{
                 
         JTextField dbSearchField = new JTextField(100);
 
+
         JLabel totalSalesLabel = new JLabel("Total Sales:"),
                 totalOrdersLabel = new JLabel("Total Orders:"),
                 totalInventoryLabel = new JLabel("Total Inventory:");
 
-        JLayeredPane dbPane = new JLayeredPane(); 
+        String[] columnNames = {"Sale Invoice", "Customer Name","Quantity", "Total", "Order Status"};
 
-    public dashboardUI() {
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        JTable salesTable = new JTable(tableModel);
+        JScrollPane dbtabScrollPane = new JScrollPane(salesTable);
         
+        
+    public dashboardUI() {
         frame.setUndecorated(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(880, 660);
         frame.setLocationRelativeTo(null);
 
-
-
 //JButtons
-        userButton.setBounds(20, 40, 120, 40); // Height changed to 45
+{
+        userButton.setBounds(20, 10, 120, 40);
         userButton.setForeground(Color.decode("#ffffff"));
         userButton.setBackground(Color.decode("#014518"));
         userButton.setLayout(null);
 
-
-        inventoryButton.setBounds(322, 40, 120, 40); // Height changed to 45
+        inventoryButton.setBounds(322, 10, 120, 40);
         inventoryButton.setForeground(Color.decode("#ffffff"));
         inventoryButton.setBackground(Color.decode("#014518"));
         inventoryButton.setFocusable(false);
         inventoryButton.setLayout(null);
-        inventoryButton.addActionListener(this);
+        // inventoryButton.addActionListener(this);
 
-
-        transactButton.setBounds(462, 40, 120, 40); // Height changed to 45
+        transactButton.setBounds(462, 10, 120, 40);
         transactButton.setForeground(Color.decode("#ffffff"));
         transactButton.setBackground(Color.decode("#014518"));
         transactButton.setFocusable(false);
         transactButton.setLayout(null);
-        transactButton.addActionListener(this);
-        
+        // transactButton.addActionListener(this);
 
-        ordersButton.setBounds(602, 40, 120, 40); // Height changed to 45
+        ordersButton.setBounds(602, 10, 120, 40);
         ordersButton.setForeground(Color.decode("#ffffff"));
         ordersButton.setBackground(Color.decode("#014518"));
         ordersButton.setLayout(null);
         ordersButton.setFocusable(false);
 
-
-        accountButton.setBounds(742, 40, 120, 40); // Height changed to 45
+        accountButton.setBounds(742, 10, 120, 40);
         accountButton.setForeground(Color.decode("#ffffff"));
         accountButton.setBackground(Color.decode("#014518"));
         accountButton.setLayout(null);
         accountButton.setFocusable(false);
 
-
-        // New Window Button
-        dbsearchButton.setBounds(168, 113, 97, 40); // Height changed to 45
+        // New Window Button: dbPanel.setBounds(15, 100, 850, 65);
+        dbsearchButton.setBounds(153, 13, 97, 40);
         dbsearchButton.setForeground(Color.decode("#ffffff"));
         dbsearchButton.setBackground(Color.decode("#014518"));
         dbsearchButton.setLayout(null);
 
-
-        dbrefreshButton.setBounds(601, 113, 120, 40); // Height changed to 45
+        dbrefreshButton.setBounds(586, 13, 120, 40);
         dbrefreshButton.setForeground(Color.decode("#ffffff"));
         dbrefreshButton.setBackground(Color.decode("#014518"));
         dbrefreshButton.setLayout(null);
 
-
-        salesHistoryButton.setBounds(733, 113, 120, 40); // Height changed to 45
+        salesHistoryButton.setBounds(718, 13, 120, 40);
         salesHistoryButton.setForeground(Color.decode("#ffffff"));
         salesHistoryButton.setBackground(Color.decode("#014518"));
         salesHistoryButton.setLayout(null);
         
-        
-        ddButton1.setBounds(109, 113, 47, 40); // Example position and size
+        ddButton1.setBounds(94, 13, 47, 40);
         ddButton1.setBackground(Color.decode("#a39f9c"));
         ddButton1.setForeground(Color.decode("#000000"));
         ddButton1.setLayout(null);
 
-        ddButton2.setBounds(543, 113, 47, 40); // Example position and size
+        ddButton2.setBounds(528, 13, 47, 40);
         ddButton2.setBackground(Color.decode("#a39f9c"));
         ddButton2.setForeground(Color.decode("#000000"));
         ddButton1.setLayout(null);
+}
 //Panels
+{
         modulesPanel.setBackground(Color.decode("#ff9933"));
         modulesPanel.setBounds(0, 30, 880, 60);
         modulesPanel.setLayout(null);
-        modulesPanel.setOpaque(false);
+        modulesPanel.setOpaque(true);
 
         dbPanel.setBackground(Color.decode("#ff9933"));
         dbPanel.setBounds(15, 100, 850, 65);
         dbPanel.setLayout(null);
-        dbPanel.setOpaque(false);
+        dbPanel.setOpaque(true);
 
         topBorder.setBounds(0, 0, 880, 30);
         topBorder.setBackground(Color.decode("#ff9933"));
@@ -140,11 +140,7 @@ public class dashboardUI implements ActionListener{
         bottomBorder.setBackground(Color.decode("#ff9933"));
         bottomBorder.setLayout(null);
         bottomBorder.setOpaque(true);
-
         
-        //JLayeredPane
-        //dbPane.setBounds(0, 0, 880, 660);
-        //dbPane.add() 
 //dbCardPanel
         modulesPanel.add(userButton);
         modulesPanel.add(inventoryButton);
@@ -158,16 +154,61 @@ public class dashboardUI implements ActionListener{
         dbPanel.add(ddButton1);
         dbPanel.add(ddButton2);
         dbPanel.add(dbSearchField);
-
-
+}
 //JTextField
-        dbSearchField.setBounds(265, 113, 166, 40); // Height changed to 45
+{
+        dbSearchField.setBounds(250, 13, 166, 40); // Height changed to 45
         dbSearchField.setBackground(Color.decode("#ffffff"));
         dbSearchField.setForeground(Color.decode("#000000"));
         dbSearchField.setEnabled(true);
         dbSearchField.setEditable(true);
         dbSearchField.setLayout(null);
-
+}
+//ScrollPane
+{
+        dbtabScrollPane.setBounds(12, 175, 392, 455);
+        dbCardPanel.add(dbtabScrollPane, "salesTable");
+// Apply the custom header renderer to the table
+salesTable.getTableHeader().setDefaultRenderer(new MultiLineHeaderRenderer());
+//tableModel.setRow
+// Updated rows without date, item, price, and payment method
+tableModel.addRow(new Object[]{"S001", "Alice", 1, 500.0, "Completed"});
+tableModel.addRow(new Object[]{"S002", "Bob", 2, 60000.0, "Completed"});
+tableModel.addRow(new Object[]{"S003", "Charlie", 3, 750.0, "Completed"});
+tableModel.addRow(new Object[]{"S004", "Diana", 1, 1000.0, "Completed"});
+tableModel.addRow(new Object[]{"S005", "Evan", 1, 7000.0, "Pending"});
+tableModel.addRow(new Object[]{"S006", "Faye", 2, 2400.0, "Completed"});
+tableModel.addRow(new Object[]{"S007", "Gina", 1, 15000.0, "Completed"});
+tableModel.addRow(new Object[]{"S008", "Harry", 2, 1000.0, "Completed"});
+tableModel.addRow(new Object[]{"S009", "Ivy", 5, 1000.0, "Completed"});
+tableModel.addRow(new Object[]{"S010", "Jack", 1, 8000.0, "Pending"});
+tableModel.addRow(new Object[]{"S011", "Karen", 1, 25000.0, "Completed"});
+tableModel.addRow(new Object[]{"S012", "Leo", 1, 1500.0, "Completed"});
+tableModel.addRow(new Object[]{"S013", "Mona", 4, 400.0, "Completed"});
+tableModel.addRow(new Object[]{"S014", "Nate", 1, 3200.0, "Completed"});
+tableModel.addRow(new Object[]{"S015", "Olive", 1, 4000.0, "Completed"});
+tableModel.addRow(new Object[]{"S016", "Paul", 2, 3600.0, "Completed"});
+tableModel.addRow(new Object[]{"S017", "Quinn", 1, 2200.0, "Pending"});
+tableModel.addRow(new Object[]{"S018", "Rose", 1, 12000.0, "Completed"});
+tableModel.addRow(new Object[]{"S019", "Steve", 1, 3500.0, "Completed"});
+tableModel.addRow(new Object[]{"S020", "Tina", 1, 1000.0, "Completed"});
+tableModel.addRow(new Object[]{"S021", "Uma", 1, 4500.0, "Completed"});
+tableModel.addRow(new Object[]{"S022", "Victor", 1, 9000.0, "Completed"});
+tableModel.addRow(new Object[]{"S023", "Wendy", 1, 5500.0, "Completed"});
+tableModel.addRow(new Object[]{"S024", "Xander", 2, 6000.0, "Completed"});
+tableModel.addRow(new Object[]{"S025", "Yara", 2, 3600.0, "Completed"});
+tableModel.addRow(new Object[]{"S026", "Zane", 1, 25000.0, "Pending"});
+tableModel.addRow(new Object[]{"S027", "Ariel", 1, 7000.0, "Completed"});
+tableModel.addRow(new Object[]{"S028", "Bryan", 2, 3000.0, "Completed"});
+tableModel.addRow(new Object[]{"S029", "Cindy", 3, 2100.0, "Completed"});
+tableModel.addRow(new Object[]{"S030", "Derek", 2, 500.0, "Completed"});
+tableModel.addRow(new Object[]{"S031", "Ella", 1, 450.0, "Completed"});
+tableModel.addRow(new Object[]{"S032", "Frank", 2, 1200.0, "Completed"});
+tableModel.addRow(new Object[]{"S033", "Grace", 1, 800.0, "Completed"});
+tableModel.addRow(new Object[]{"S034", "Hank", 3, 900.0, "Completed"});
+tableModel.addRow(new Object[]{"S035", "Isabel", 2, 500.0, "Completed"});
+tableModel.addRow(new Object[]{"S036", "Jake", 1, 1500.0, "Completed"});
+}
 /* 
 //Frame settings
         // Adding buttons to the modules panel
@@ -193,23 +234,20 @@ public class dashboardUI implements ActionListener{
         frame.add(topBorder);
         frame.add(bottomBorder);
         */
-
 //CardLayout
+{
+        dbCardPanel.setLayout(null);
+        dbCardPanel.setBounds(0, 30, 880, 600);
         dbCardPanel.add(dbPanel, "Dashboard");
         dbCardPanel.add(modulesPanel, "Modules");
         dbCardPanel.add(topBorder, "Top Border");
         dbCardPanel.add(bottomBorder, "Bottom Border");
 
-        
-
-        // Set the background color of dbCardPanel to green
         dbCardPanel.setBackground(Color.decode("#014518")); // Green background
-
         frame.setContentPane(dbCardPanel);
         frame.setVisible(true);
-
-
-        /*
+}
+/*
     JFrame frame = new JFrame("Dashboard UI");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(880, 660);
@@ -234,7 +272,7 @@ public class dashboardUI implements ActionListener{
     }
          */
     }
-
+/*
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
@@ -242,4 +280,31 @@ public class dashboardUI implements ActionListener{
                 cardLayout.show(dbCardPanel, "sales");
         }
     }
+        */
+
+    // ... existing code ...
+
+    // Inner class for Multi-Line Header Renderer
+    class MultiLineHeaderRenderer extends JLabel implements TableCellRenderer {
+        public MultiLineHeaderRenderer() {
+            setHorizontalAlignment(CENTER);
+            setVerticalAlignment(CENTER);
+            setOpaque(true);
+            setBackground(Color.decode("#014518"));
+            setForeground(Color.WHITE);
+            setFont(new Font("Segoe UI", Font.BOLD, 12));
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            if (value != null && value.toString().equals("Customer Name")) {
+                setText("<html><center>Customer<br>Name</center></html>");
+            } else {
+                setText("<html><center>" + value.toString() + "</center></html>");
+            }
+            return this;
+        }
+    }
 }
+
+
